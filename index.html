@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jia — Your inner voice, amplified.</title>
+  <meta name="description" content="Jia is an AI journaling app that enhances your inner voice to help you be your best self and realize your potential.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0C0B09;
+      --surface: #161513;
+      --surface-raised: #1C1B18;
+      --border: rgba(255,255,255,0.06);
+      --border-subtle: rgba(255,255,255,0.03);
+      --text-primary: #F5F0E8;
+      --text-secondary: rgba(245,240,232,0.55);
+      --text-tertiary: rgba(245,240,232,0.3);
+      --accent: #E8A87C;
+      --accent-dim: rgba(232,168,124,0.15);
+      --accent-glow: rgba(232,168,124,0.08);
+      --warm-white: #F5F0E8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      overflow-y: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ============ AMBIENT BACKGROUND ============ */
+    .ambient {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .ambient::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140%;
+      height: 60%;
+      background: radial-gradient(ellipse at center, rgba(232,168,124,0.07) 0%, transparent 70%);
+      animation: ambientPulse 8s ease-in-out infinite alternate;
+    }
+    .ambient::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120%;
+      height: 40%;
+      background: radial-gradient(ellipse at center, rgba(232,168,124,0.04) 0%, transparent 70%);
+      animation: ambientPulse 10s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes ambientPulse {
+      from { opacity: 0.6; transform: translateX(-50%) scale(1); }
+      to { opacity: 1; transform: translateX(-50%) scale(1.1); }
+    }
+
+    /* Noise texture overlay */
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+      mix-blend-mode: overlay;
+    }
+
+    /* ============ HANDS ============ */
+    .fixed-hands {
+      position: fixed;
+      height: auto;
+      z-index: 10;
+      pointer-events: none;
+      filter: brightness(0.9) contrast(1.1);
+    }
+    .fixed-hands.left {
+      right: calc(50% + 219px);
+      bottom: -392px;
+      width: 540px;
+    }
+    .fixed-hands.right {
+      left: calc(50% + 222px);
+      bottom: -392px;
+      width: 540px;
+    }
+
+    /* ============ MAIN CONTAINER ============ */
+    .landing {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 80px 24px;
+      max-width: 740px;
+      width: 100%;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    /* ============ CARD ============ */
+    .card-wrap {
+      width: 692px;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      background: var(--surface);
+      border-radius: 28px;
+      padding: 48px 56px 200px;
+      padding-left: 72px; /* extra left space for binding */
+      border: 1px solid var(--border);
+      box-shadow:
+        0 0 0 1px var(--border-subtle),
+        0 24px 80px -12px rgba(0,0,0,0.5),
+        0 0 120px -40px var(--accent-glow);
+      overflow: hidden;
+    }
+    /* Inner glow at top of card */
+    .card-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(232,168,124,0.2), transparent);
+      border-radius: 100%;
+      z-index: 3;
+    }
+    /* Ruled lines */
+    .card-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 35px,
+        rgba(255,255,255,0.025) 35px,
+        rgba(255,255,255,0.025) 36px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ============ SPIRAL BINDING ============ */
+    .spiral-binding {
+      position: absolute;
+      left: 22px;
+      top: 20px;
+      bottom: 20px;
+      width: 20px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 44px;
+      padding: 10px 0;
+    }
+    .spiral-ring {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2.5px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+      position: relative;
+      box-shadow:
+        0 1px 2px rgba(0,0,0,0.3),
+        inset 0 1px 1px rgba(255,255,255,0.03);
+    }
+    /* Metallic highlight on rings */
+    .spiral-ring::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 3px;
+      width: 5px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+    }
+    /* Red margin line */
+    .spiral-margin {
+      position: absolute;
+      left: 52px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(232,168,124,0.1);
+      z-index: 1;
+    }
+
+    /* ============ WORDMARK ============ */
+    .wordmark {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 3.6rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      letter-spacing: -1px;
+      opacity: 0;
+      transform: translateY(-8px);
+      filter: blur(6px);
+      margin-top: 32px;
+      margin-bottom: 24px;
+    }
+    .animate .wordmark {
+      animation: fadeDown 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) 0s forwards;
+    }
+
+    /* ============ SLOGAN ============ */
+    .slogan {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      font-size: clamp(2.4rem, 6vw, 3.4rem);
+      line-height: 1.15;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(-8px);
+      filter: blur(6px);
+      letter-spacing: -1.5px;
+    }
+    .slogan em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--accent), #F2C97E);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .animate .slogan {
+      animation: fadeDown 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) 0.08s forwards;
+    }
+
+    /* ============ DESCRIPTION ============ */
+    .description {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      opacity: 0;
+      transform: translateY(-8px);
+      filter: blur(6px);
+      margin-bottom: 48px;
+      line-height: 1.7;
+      letter-spacing: 0.1px;
+      max-width: 380px;
+    }
+    .animate .description {
+      animation: fadeDown 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.16s forwards;
+    }
+
+    /* ============ LOGO ============ */
+    .logo-wrap {
+      position: relative;
+      margin-bottom: 24px;
+      opacity: 0;
+      filter: blur(8px);
+    }
+    .logo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      z-index: -1;
+      animation: glowPulse 4s ease-in-out infinite alternate;
+    }
+    @keyframes glowPulse {
+      from { opacity: 0.5; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1.05); }
+    }
+    .animate .logo-wrap {
+      animation: logoReveal 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s forwards;
+    }
+    .logo-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 30px;
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(255,255,255,0.06);
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .logo-img:hover {
+      transform: scale(1.05) rotate(-2deg);
+    }
+
+    /* ============ DIVIDER ============ */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(12px);
+      filter: blur(6px);
+    }
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+    .divider-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      white-space: nowrap;
+    }
+    .animate .divider {
+      animation: fadeUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.5s forwards;
+    }
+
+    /* ============ WAITLIST ============ */
+    .waitlist {
+      width: 100%;
+      max-width: 440px;
+      margin-bottom: 40px;
+    }
+    .waitlist-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+    .waitlist-input {
+      width: 100%;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface-raised);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      opacity: 0;
+      transform: translateY(12px);
+      filter: blur(6px);
+    }
+    .waitlist-input::placeholder { color: var(--text-tertiary); }
+    .waitlist-input:focus {
+      border-color: rgba(232,168,124,0.3);
+      box-shadow: 0 0 0 3px var(--accent-dim), 0 0 20px -4px var(--accent-glow);
+      background: var(--bg);
+    }
+    .animate .waitlist-input {
+      animation: fadeUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.65s forwards;
+    }
+    .waitlist-btn {
+      width: 100%;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, var(--accent), #D4956A);
+      color: var(--bg);
+      border: none;
+      border-radius: 14px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      filter: blur(6px);
+    }
+    .animate .waitlist-btn {
+      animation: fadeUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.77s forwards;
+    }
+    .waitlist-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+    .waitlist-btn:hover::before {
+      transform: translateX(100%);
+    }
+    .waitlist-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px -4px rgba(232,168,124,0.35);
+    }
+    .waitlist-btn:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .waitlist-success {
+      display: none;
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 1.6rem;
+      color: var(--accent);
+      padding: 20px;
+    }
+    .waitlist.success .waitlist-form { display: none; }
+    .waitlist.success .waitlist-success {
+      display: block;
+      animation: fadeUp 0.5s ease-out forwards;
+    }
+
+    /* ============ FOOTER ============ */
+    .footer-note {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      opacity: 0;
+      transform: translateY(10px);
+      filter: blur(6px);
+      line-height: 1.5;
+      letter-spacing: 0.5px;
+    }
+    .footer-note .ios-icon {
+      display: inline-block;
+      vertical-align: -1px;
+      margin-right: 4px;
+    }
+    .animate .footer-note {
+      animation: fadeUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) 0.9s forwards;
+    }
+
+    /* ============ CONFETTI ============ */
+    .confetti-container {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 99;
+    }
+
+    /* ============ KEYFRAMES ============ */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-8px); filter: blur(6px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0px); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); filter: blur(6px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0px); }
+    }
+    @keyframes logoReveal {
+      from { opacity: 0; filter: blur(8px); }
+      to { opacity: 1; filter: blur(0px); }
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 780px) {
+      .fixed-hands { display: none; }
+    }
+    @media (max-width: 600px) {
+      .landing { padding: 40px 16px; }
+      .card-wrap { padding: 24px 28px 100px; padding-left: 52px; border-radius: 22px; }
+      .spiral-binding { left: 14px; gap: 16px; }
+      .spiral-ring { width: 14px; height: 14px; border-width: 2px; }
+      .spiral-margin { left: 38px; }
+      .logo-img { width: 100px; height: 100px; border-radius: 24px; }
+      .waitlist-form { flex-direction: column; }
+      .waitlist-btn { padding: 16px; }
+      .slogan { margin-bottom: 20px; }
+      .pill { margin-bottom: 24px; }
+    }
+    @media (max-width: 380px) {
+      .wordmark { font-size: 2.8rem; }
+      .logo-img { width: 88px; height: 88px; border-radius: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient glow -->
+  <div class="ambient"></div>
+  <!-- Film grain -->
+  <div class="noise"></div>
+
+  <!-- ============ HANDS ============ -->
+  <img src="left_handy.png" class="fixed-hands left" alt="">
+  <img src="right_handy.png" class="fixed-hands right" alt="">
+
+  <main class="landing" id="landing">
+    <div class="card-wrap">
+
+    <!-- Spiral notebook binding -->
+    <div class="spiral-binding" id="spiralBinding"></div>
+    <div class="spiral-margin"></div>
+
+    <p class="wordmark">Jia</p>
+
+    <h1 class="slogan">Your inner voice,<br><em>amplified.</em></h1>
+
+    <p class="description">An AI journal for self-discovery, clarity, and becoming your best self.</p>
+
+    <div class="logo-wrap">
+      <img class="logo-img" src="logo.png" alt="Jia — spiral logo">
+    </div>
+
+    <div class="divider">
+      <span class="divider-text">A gift for future you</span>
+    </div>
+
+    <div class="waitlist" id="waitlist">
+      <form class="waitlist-form" id="waitlistForm" action="https://formspree.io/f/xqejaqwb" method="POST">
+        <input class="waitlist-input" type="email" name="email" placeholder="Enter your email" required autocomplete="email">
+        <button class="waitlist-btn" type="submit">Join the waitlist</button>
+      </form>
+      <div class="waitlist-success">You're on the list.<br>We'll be in touch.</div>
+    </div>
+
+    <p class="footer-note">
+      <svg class="ios-icon" width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M9.5 4.5C9.5 2.5 8 1 6 1S2.5 2.5 2.5 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><rect x="0.6" y="5" width="10.8" height="8.4" rx="2" stroke="currentColor" stroke-width="1.2"/></svg>
+      Available soon on iOS
+    </p>
+
+    </div>
+  </main>
+
+  <div class="confetti-container" id="confettiContainer"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const landing = document.getElementById('landing');
+
+      // Generate spiral rings to fill the card height
+      const binding = document.getElementById('spiralBinding');
+      const card = binding.parentElement;
+
+      const cardHeight = card.offsetHeight;
+      const ringSize = 18;
+      const gap = 44;
+      const padding = 20;
+      const count = Math.floor((cardHeight - padding * 2) / (ringSize + gap));
+      for (let i = 0; i < count; i++) {
+        const ring = document.createElement('div');
+        ring.className = 'spiral-ring';
+        binding.appendChild(ring);
+      }
+
+      // Stagger entrance
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          landing.classList.add('animate');
+        });
+      });
+
+      // Fallback visibility
+      const reveals = [
+        { sel: '.wordmark', delay: 600, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
+        { sel: '.slogan', delay: 700, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
+        { sel: '.description', delay: 800, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
+        { sel: '.logo-wrap', delay: 900, styles: { opacity: '1', filter: 'blur(0px)' } },
+        { sel: '.divider', delay: 1000, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
+        { sel: '.waitlist-input', delay: 1100, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
+        { sel: '.waitlist-btn', delay: 1200, styles: { opacity: '1', filter: 'blur(0px)' } },
+        { sel: '.footer-note', delay: 1300, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
+      ];
+      reveals.forEach(({ sel, delay, styles }) => {
+        setTimeout(() => {
+          const el = document.querySelector(sel);
+          if (el) Object.assign(el.style, styles);
+        }, delay);
+      });
+    });
+
+    // Form — optimistic: show success immediately, submit in background
+    const form = document.getElementById('waitlistForm');
+    const waitlist = document.getElementById('waitlist');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      waitlist.classList.add('success');
+      spawnConfetti();
+      fetch(form.action, {
+        method: 'POST', body: data,
+        headers: { 'Accept': 'application/json' }
+      }).catch(() => {});
+    });
+
+    function spawnConfetti() {
+      const c = document.getElementById('confettiContainer');
+      const colors = ['#E8A87C','#F2C97E','#D4956A','#F5F0E8','#E07850'];
+      for (let i = 0; i < 40; i++) {
+        const p = document.createElement('div');
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const size = 4 + Math.random() * 8;
+        const shapes = ['50%', '2px', '50% 0 50% 50%'];
+        p.style.cssText = `
+          position:absolute; left:${30+Math.random()*40}%; top:-10px;
+          width:${size}px; height:${size}px; background:${color};
+          border-radius:${shapes[Math.floor(Math.random()*shapes.length)]};
+          opacity:0.9; animation: confettiFall ${1.5+Math.random()*2}s ease-out ${Math.random()*0.5}s forwards;
+        `;
+        c.appendChild(p);
+      }
+      setTimeout(() => c.innerHTML = '', 4000);
+    }
+  </script>
+
+</body>
+</html>
