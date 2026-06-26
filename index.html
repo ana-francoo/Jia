@@ -34,6 +34,7 @@
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="apple-touch-icon" href="logo.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- ============ STRUCTURED DATA (SEO / AEO) ============ -->
   <script type="application/ld+json">
@@ -127,8 +128,79 @@
               "@type": "Answer",
               "text": "Jia is launching soon on iOS. You can join the waitlist for free today to get early access at launch. Pricing details will be shared with waitlist members first."
             }
+          },
+          {
+            "@type": "Question",
+            "name": "What's the best AI app for self-improvement and personal growth?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Jia is an AI app built specifically for self-improvement and personal growth through journaling. Instead of tracking habits or to-dos, it helps you understand yourself: you reflect on your day, Jia mirrors your thoughts back with clarity, and over time it connects the dots between how you feel, what you do, and who you want to become."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can journaling help me stop overthinking and find clarity?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Writing a thought down gets it out of the loop in your head and into something you can actually look at. Jia takes this further: as you journal, its AI reflects your thoughts back, names what you're circling on, and asks the question that moves you forward — turning overthinking into clarity and a next step."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can Jia help me build better habits and follow through on my goals?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Jia keeps your goals and values in view and gently holds you accountable as you reflect, without nagging or guilt. By helping you notice what's working, what keeps tripping you up, and why, it makes follow-through feel less like willpower and more like self-understanding."
+            }
           }
         ]
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://jia.app/#howto",
+        "name": "How to use Jia to get your life together",
+        "description": "Use Jia, an AI journaling app, to gain clarity, understand your patterns, and grow into your full potential.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Write or speak your mind",
+            "text": "Open Jia and journal freely — type it out or just talk. No prompts to overthink, no blank-page pressure."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Jia listens and reflects",
+            "text": "Its AI reads between the lines, asks the questions a wise friend would, and mirrors your thoughts back with clarity."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "See your patterns",
+            "text": "Over time, Jia connects the dots across entries — your moods, your wins, and the loops you keep returning to."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "Grow with intention",
+            "text": "Turn insight into action, and watch yourself become your best self, entry by entry."
+          }
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://jia.app/#webpage",
+        "url": "https://jia.app/",
+        "name": "Jia — AI Journaling App to Get Your Life Together & Reach Your Potential",
+        "isPartOf": { "@id": "https://jia.app/#website" },
+        "about": { "@id": "https://jia.app/#app" },
+        "primaryImageOfPage": "https://jia.app/logo.png",
+        "dateModified": "2026-06-26",
+        "inLanguage": "en-US",
+        "speakable": {
+          "@type": "SpeakableSpecification",
+          "cssSelector": [".lead", "#what-is-jia", "#faq"]
+        }
       }
     ]
   }
@@ -216,10 +288,22 @@
     }
 
     /* ============ HANDS ============ */
-    .fixed-hands {
-      position: fixed;
-      height: auto;
+    /* Anchor pins the hands to the first screen so they hold the top of
+       the notebook page and scroll away as you read down. overflow:hidden
+       stops them bleeding over the content below the fold. */
+    .hands-anchor {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
       z-index: 10;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .fixed-hands {
+      position: absolute;
+      height: auto;
       pointer-events: none;
       filter: brightness(0.9) contrast(1.1);
     }
@@ -241,9 +325,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       min-height: 100vh;
-      padding: 80px 24px;
+      padding: 56px 24px 72px;
       max-width: 740px;
       width: 100%;
       text-align: center;
@@ -260,7 +344,7 @@
       position: relative;
       background: var(--surface);
       border-radius: 28px;
-      padding: 48px 56px 200px;
+      padding: 48px 56px 84px;
       padding-left: 72px; /* extra left space for binding */
       border: 1px solid var(--border);
       box-shadow:
@@ -341,6 +425,17 @@
       width: 1px;
       background: rgba(232,168,124,0.1);
       z-index: 1;
+    }
+
+    /* Hero fills the first screen so the hands hold an empty band of
+       paper at the bottom, and the SEO content begins below the fold. */
+    .hero-inner {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 104px);
     }
 
     /* ============ WORDMARK ============ */
@@ -629,16 +724,20 @@
     }
 
     /* ============ SEO / AEO CONTENT ============ */
+    /* On-paper content — continues the notebook page below the hero. */
     .content {
       position: relative;
-      z-index: 20;
-      background: var(--bg);
-      border-top: 1px solid var(--border);
-      padding: 100px 24px 72px;
+      z-index: 2;
+      width: 100%;
+      align-self: stretch;
+      text-align: left;
+      padding-top: 8px;
     }
-    .content-inner {
-      max-width: 720px;
-      margin: 0 auto;
+    .content-divider {
+      width: 100%;
+      height: 1px;
+      margin-bottom: 56px;
+      background: linear-gradient(90deg, transparent, var(--border) 35%, var(--border) 65%, transparent);
     }
     .content section { margin-bottom: 76px; }
     .content section:last-child { margin-bottom: 0; }
@@ -735,6 +834,55 @@
       color: var(--text-secondary);
     }
 
+    /* Comparison table */
+    .compare-wrap { overflow-x: auto; margin: 8px 0 4px; }
+    table.compare {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      min-width: 460px;
+    }
+    table.compare caption {
+      text-align: left;
+      color: var(--text-tertiary);
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+      letter-spacing: 0.2px;
+    }
+    table.compare th,
+    table.compare td {
+      text-align: left;
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    table.compare thead th {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    table.compare thead th.jia { color: var(--accent); }
+    table.compare tbody th {
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+    table.compare td { color: var(--text-secondary); }
+    table.compare td.yes { color: var(--accent); font-weight: 600; }
+    table.compare td.no { color: var(--text-tertiary); }
+    table.compare tbody tr:last-child th,
+    table.compare tbody tr:last-child td { border-bottom: none; }
+
+    /* "Last updated" freshness stamp */
+    .updated-stamp {
+      display: inline-block;
+      margin-top: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      color: var(--text-tertiary);
+    }
+
     /* Secondary CTA */
     .cta-band { text-align: center; }
     .cta-band .cta-link {
@@ -770,8 +918,10 @@
     }
 
     @media (max-width: 600px) {
-      .content { padding: 64px 18px 48px; }
+      .content { padding-top: 4px; }
+      .content-divider { margin-bottom: 40px; }
       .content section { margin-bottom: 56px; }
+      .hero-inner { min-height: calc(100vh - 64px); }
     }
   </style>
 </head>
@@ -782,16 +932,21 @@
   <!-- Film grain -->
   <div class="noise"></div>
 
-  <!-- ============ HANDS ============ -->
-  <img src="left_handy.png" class="fixed-hands left" alt="">
-  <img src="right_handy.png" class="fixed-hands right" alt="">
-
   <main class="landing" id="landing">
+
+    <!-- ============ HANDS (hold the top of the notebook page) ============ -->
+    <div class="hands-anchor">
+      <img src="left_handy.png" class="fixed-hands left" alt="">
+      <img src="right_handy.png" class="fixed-hands right" alt="">
+    </div>
+
     <div class="card-wrap">
 
     <!-- Spiral notebook binding -->
     <div class="spiral-binding" id="spiralBinding"></div>
     <div class="spiral-margin"></div>
+
+    <div class="hero-inner">
 
     <p class="wordmark">Jia</p>
 
@@ -820,12 +975,11 @@
       Available soon on iOS
     </p>
 
-    </div>
-  </main>
+    </div><!-- /hero-inner -->
 
-  <!-- ============ SEO / AEO CONTENT ============ -->
-  <div class="content">
-    <div class="content-inner">
+    <!-- ============ SEO / AEO CONTENT (continues on the same paper) ============ -->
+    <div class="content">
+      <div class="content-divider"></div>
 
       <section aria-labelledby="what-is-jia">
         <h2 id="what-is-jia">What is <em>Jia</em>?</h2>
@@ -867,6 +1021,62 @@
         </ul>
       </section>
 
+      <section aria-labelledby="compare">
+        <h2 id="compare">Jia vs. a paper journal vs. a notes app</h2>
+        <p>All three give you somewhere to put your thoughts. Only Jia reflects them back and helps you act on them.</p>
+        <div class="compare-wrap">
+          <table class="compare">
+            <caption>How Jia compares to traditional ways of journaling.</caption>
+            <thead>
+              <tr>
+                <th scope="col">What you get</th>
+                <th scope="col" class="jia">Jia (AI journal)</th>
+                <th scope="col">Paper journal</th>
+                <th scope="col">Notes app</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Captures your thoughts</th>
+                <td class="yes">Yes</td>
+                <td class="yes">Yes</td>
+                <td class="yes">Yes</td>
+              </tr>
+              <tr>
+                <th scope="row">Reflects back &amp; responds</th>
+                <td class="yes">Yes</td>
+                <td class="no">No</td>
+                <td class="no">No</td>
+              </tr>
+              <tr>
+                <th scope="row">Surfaces patterns over time</th>
+                <td class="yes">Yes</td>
+                <td class="no">No</td>
+                <td class="no">No</td>
+              </tr>
+              <tr>
+                <th scope="row">Keeps your goals in view</th>
+                <td class="yes">Yes</td>
+                <td class="no">Manual</td>
+                <td class="no">Manual</td>
+              </tr>
+              <tr>
+                <th scope="row">Write or speak your entry</th>
+                <td class="yes">Both</td>
+                <td class="no">Write only</td>
+                <td class="no">Type only</td>
+              </tr>
+              <tr>
+                <th scope="row">Private, judgment-free space</th>
+                <td class="yes">Yes</td>
+                <td class="yes">Yes</td>
+                <td class="no">Partial</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
       <section aria-labelledby="faq">
         <h2 id="faq">Frequently asked questions</h2>
         <details class="faq-item">
@@ -893,16 +1103,30 @@
           <summary>How much does Jia cost and when is it available?</summary>
           <p>Jia is launching soon on iOS. You can join the waitlist for free today to get early access at launch. Pricing details will be shared with waitlist members first.</p>
         </details>
+        <details class="faq-item">
+          <summary>What's the best AI app for self-improvement and personal growth?</summary>
+          <p>Jia is an AI app built specifically for self-improvement and personal growth through journaling. Instead of tracking habits or to-dos, it helps you understand yourself: you reflect on your day, Jia mirrors your thoughts back with clarity, and over time it connects the dots between how you feel, what you do, and who you want to become.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How can journaling help me stop overthinking and find clarity?</summary>
+          <p>Writing a thought down gets it out of the loop in your head and into something you can actually look at. Jia takes this further: as you journal, its AI reflects your thoughts back, names what you're circling on, and asks the question that moves you forward — turning overthinking into clarity and a next step.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can Jia help me build better habits and follow through on my goals?</summary>
+          <p>Yes. Jia keeps your goals and values in view and gently holds you accountable as you reflect, without nagging or guilt. By helping you notice what's working, what keeps tripping you up, and why, it makes follow-through feel less like willpower and more like self-understanding.</p>
+        </details>
       </section>
 
       <section class="cta-band" aria-labelledby="cta">
         <h2 id="cta">Start becoming your best self</h2>
         <p>Jia is available soon on iOS. Join the waitlist and be first in line.</p>
         <a class="cta-link" href="#landing">Join the waitlist →</a>
+        <br><span class="updated-stamp">Last updated June 2026</span>
       </section>
 
-    </div>
-  </div>
+    </div><!-- /content -->
+    </div><!-- /card-wrap -->
+  </main>
 
   <footer class="site-footer">
     <p>Jia — your inner voice, amplified. An AI journal for self-discovery, clarity, and reaching your full potential. Available soon on iOS.</p>
@@ -915,20 +1139,27 @@
     document.addEventListener('DOMContentLoaded', () => {
       const landing = document.getElementById('landing');
 
-      // Generate spiral rings to fill the card height
+      // Generate spiral rings to fill the full-page card height.
       const binding = document.getElementById('spiralBinding');
       const card = binding.parentElement;
 
-      const cardHeight = card.offsetHeight;
-      const ringSize = 18;
-      const gap = 44;
-      const padding = 20;
-      const count = Math.floor((cardHeight - padding * 2) / (ringSize + gap));
-      for (let i = 0; i < count; i++) {
-        const ring = document.createElement('div');
-        ring.className = 'spiral-ring';
-        binding.appendChild(ring);
+      function buildRings() {
+        const ringSize = 18, gap = 44, padding = 20;
+        const count = Math.max(0, Math.floor((card.offsetHeight - padding * 2) / (ringSize + gap)));
+        if (binding.childElementCount === count) return;
+        binding.innerHTML = '';
+        for (let i = 0; i < count; i++) {
+          const ring = document.createElement('div');
+          ring.className = 'spiral-ring';
+          binding.appendChild(ring);
+        }
       }
+      buildRings();
+      // Recompute once fonts/images settle and whenever the height changes.
+      window.addEventListener('load', buildRings);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(buildRings);
+      let rz;
+      window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(buildRings, 150); });
 
       // Stagger entrance
       requestAnimationFrame(() => {
