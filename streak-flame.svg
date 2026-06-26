@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 250" role="img" aria-label="Jia streak flame">
+  <defs>
+    <!-- Vertical body gradient: bright at top, deep maroon → near-black at base -->
+    <linearGradient id="flameBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#FFC83D"/>
+      <stop offset="18%" stop-color="#FF9A2E"/>
+      <stop offset="42%" stop-color="#F4642A"/>
+      <stop offset="68%" stop-color="#C4321F"/>
+      <stop offset="86%" stop-color="#6E1726"/>
+      <stop offset="100%" stop-color="#241326"/>
+    </linearGradient>
+    <!-- Warm inner glow following the flame's swirl -->
+    <linearGradient id="flameSwirl" x1="0.3" y1="0" x2="0.6" y2="1">
+      <stop offset="0%"  stop-color="#FFE08A"/>
+      <stop offset="40%" stop-color="#FFB14D"/>
+      <stop offset="100%" stop-color="#F4642A" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="flameCore" cx="0.46" cy="0.32" r="0.55">
+      <stop offset="0%"  stop-color="#FFEFB0"/>
+      <stop offset="45%" stop-color="#FFAE3C" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFAE3C" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Flame / teardrop body: rounded base, tip curling to the right -->
+  <path d="M104 8
+    C112 36, 150 64, 162 104
+    C176 150, 158 200, 116 224
+    C92 238, 60 238, 38 220
+    C12 198, 6 158, 22 118
+    C34 88, 58 70, 74 44
+    C84 28, 92 18, 104 8 Z"
+    fill="url(#flameBody)"/>
+
+  <!-- Soft inner core glow -->
+  <path d="M104 8
+    C112 36, 150 64, 162 104
+    C176 150, 158 200, 116 224
+    C92 238, 60 238, 38 220
+    C12 198, 6 158, 22 118
+    C34 88, 58 70, 74 44
+    C84 28, 92 18, 104 8 Z"
+    fill="url(#flameCore)"/>
+
+  <!-- Central rising swirl (the bright tongue of fire) -->
+  <path d="M100 30
+    C96 60, 118 78, 118 112
+    C118 142, 92 158, 96 192
+    C98 212, 110 222, 110 222
+    C84 214, 72 188, 80 160
+    C88 132, 110 120, 104 92
+    C100 70, 94 52, 100 30 Z"
+    fill="url(#flameSwirl)" opacity="0.92"/>
+
+  <!-- Secondary inner flame ribbon -->
+  <path d="M128 86
+    C140 112, 130 142, 112 162
+    C124 138, 122 116, 112 96
+    C118 92, 124 90, 128 86 Z"
+    fill="#FFB14D" opacity="0.55"/>
+
+  <!-- Decorative spiral curl (upper-left, like the reference) -->
+  <path d="M58 116
+    C50 110, 52 98, 62 96
+    C72 94, 78 104, 72 112
+    C67 118, 58 116, 57 109
+    C56 103, 62 100, 66 103"
+    fill="none" stroke="#FFCF6B" stroke-width="4" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- Decorative spiral curl (lower-right) -->
+  <path d="M138 170
+    C146 166, 154 174, 149 182
+    C145 189, 135 188, 133 180
+    C131 173, 138 169, 143 172"
+    fill="none" stroke="#F0883B" stroke-width="3.5" stroke-linecap="round" opacity="0.75"/>
+
+  <!-- Lower swirling embers -->
+  <path d="M70 196
+    C82 188, 96 196, 96 210
+    C96 200, 86 196, 78 200
+    C84 206, 80 214, 72 212"
+    fill="none" stroke="#9C2233" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+</svg>
