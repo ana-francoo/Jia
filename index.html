@@ -257,9 +257,10 @@
       top: -20%;
       left: 50%;
       transform: translateX(-50%);
-      width: 140%;
+      width: 170%;
       height: 60%;
-      background: radial-gradient(ellipse at center, rgba(232,168,124,0.07) 0%, transparent 70%);
+      background: radial-gradient(ellipse at center, rgba(232,168,124,0.045) 0%, transparent 60%);
+      filter: blur(50px);
       animation: ambientPulse 8s ease-in-out infinite alternate;
     }
     .ambient::after {
@@ -268,9 +269,10 @@
       bottom: -10%;
       left: 50%;
       transform: translateX(-50%);
-      width: 120%;
+      width: 145%;
       height: 40%;
-      background: radial-gradient(ellipse at center, rgba(232,168,124,0.04) 0%, transparent 70%);
+      background: radial-gradient(ellipse at center, rgba(232,168,124,0.025) 0%, transparent 60%);
+      filter: blur(50px);
       animation: ambientPulse 10s ease-in-out infinite alternate-reverse;
     }
     @keyframes ambientPulse {
