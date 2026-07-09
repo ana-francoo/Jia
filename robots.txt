@@ -50,4 +50,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://jia.app/sitemap.xml
+Sitemap: https://tryjia.app/sitemap.xml
