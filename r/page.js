@@ -2,7 +2,7 @@
 // (never innerHTML), so a passage can never inject markup. No analytics, no cookies, no storage.
 //
 // Plain on purpose: the polished design (pills, footer, the writer's paper and ink) is #357, the
-// expired notice #355.
+// expired notice #355 (done).
 
 import { formatPassageDate, resolvePassage } from "/r/passage.js";
 
@@ -33,6 +33,9 @@ const result = await resolvePassage(window.location);
 switch (result.kind) {
   case "passage":
     renderPassage(result.payload);
+    break;
+  case "expired":
+    show("notice-expired");
     break;
   case "error":
     show("notice-error");
