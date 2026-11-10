@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>A passage from my journal · Jia</title>
   <meta name="description" content="A passage from my journal, shared with Jia.">
   <!-- Someone's journal: never indexed, never followed, never sends a referrer. -->
   <meta name="robots" content="noindex, nofollow, noarchive">
   <meta name="referrer" content="no-referrer">
-  <meta name="theme-color" content="#F6F1E7">
+  <meta name="theme-color" content="#FCFAF5">
+  <meta name="color-scheme" content="light">
+  <meta name="format-detection" content="telephone=no">
 
   <!-- Static preview: the server cannot read the passage, so every link unfurls the same (ADR-0064).
        The dedicated preview image is #358; until then, the site's image. -->
@@ -26,11 +28,18 @@
   <script type="module" src="/r/page.js"></script>
 </head>
 <body>
+  <!-- App Store links: one URL, used by both pills. JIA_APP_STORE_ID is a placeholder until the
+       listing exists; ct=shared_passage is the campaign token (#353). -->
+  <header class="topbar">
+    <a class="wordmark" href="https://tryjia.app/">Jia</a>
+    <a class="pill" href="https://apps.apple.com/app/idJIA_APP_STORE_ID?ct=shared_passage">Download for free</a>
+  </header>
+
   <main id="passage-page" aria-busy="true">
     <!-- Shown once the passage opens. -->
-    <article id="passage" hidden>
-      <h1>A passage from my journal</h1>
-      <p id="passage-date" class="passage-date"></p>
+    <article id="passage" class="passage" aria-labelledby="passage-heading" tabindex="-1" hidden>
+      <h1 id="passage-heading">A passage from my journal</h1>
+      <p class="passage-date"><time id="passage-date"></time></p>
       <div id="passage-body" class="passage-body"></div>
     </article>
 
@@ -53,5 +62,22 @@
       </section>
     </noscript>
   </main>
+
+  <!-- Revealed once the reader scrolls (r/footer.js). Starts hidden so it never shows on a notice. -->
+  <aside id="get-app" class="get-app" aria-label="Get Jia" hidden>
+    <div class="get-app-card">
+      <img class="get-app-icon" src="/apple-touch-icon.png" alt="" width="44" height="44">
+      <p class="get-app-text">
+        <span class="get-app-name">Jia</span>
+        <span class="get-app-tagline">Reflection shouldn't start from zero.</span>
+      </p>
+      <a class="pill" href="https://apps.apple.com/app/idJIA_APP_STORE_ID?ct=shared_passage">Get app</a>
+      <button class="get-app-close" type="button" aria-label="Dismiss">
+        <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false">
+          <path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </aside>
 </body>
 </html>

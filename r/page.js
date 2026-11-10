@@ -1,10 +1,11 @@
 // The /r/{id} page: decides what to show from its own location and draws it with textContent only
 // (never innerHTML), so a passage can never inject markup. No analytics, no cookies, no storage.
 //
-// Plain on purpose: the polished design (pills, footer, the writer's paper and ink) is #357, the
-// expired notice #355.
+// Design (#357): the writer's paper and ink via r/appearance.js, the "Get app" footer via r/footer.js.
 
 import { formatPassageDate, resolvePassage } from "/r/passage.js";
+import { applyAppearance } from "/r/appearance.js";
+import { revealFooterOnScroll } from "/r/footer.js";
 
 function show(id) {
   document.getElementById(id).hidden = false;
@@ -12,7 +13,9 @@ function show(id) {
 }
 
 function renderPassage(payload) {
-  document.getElementById("passage-date").textContent = formatPassageDate(payload.date);
+  const date = document.getElementById("passage-date");
+  date.textContent = formatPassageDate(payload.date);
+  date.dateTime = payload.date;
   const body = document.getElementById("passage-body");
   body.replaceChildren();
   for (const run of payload.runs) {
@@ -26,7 +29,9 @@ function renderPassage(payload) {
   article.dataset.paperStyle = payload.paperStyleID;
   article.dataset.paperTone = payload.paperToneID;
   article.dataset.inkTone = payload.inkToneID;
+  applyAppearance(payload);
   show("passage");
+  revealFooterOnScroll();
 }
 
 const result = await resolvePassage(window.location);

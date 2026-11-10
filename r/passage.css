@@ -1,18 +1,307 @@
+/* The /r/{id} page (#357). Mobile-first; system faces only, so nothing loads from a third party.
+ *
+ * The paper and ink mirror the app's DesignSystem catalogs value for value (sRGB → hex):
+ *   PaperToneCatalog  (stock, ruleColor, grainOpacity)  → --paper, --rule, --grain
+ *   PaperStyleCatalog (ruling.lineOpacity)              → --rule-opacity
+ *   InkToneCatalog    (red, green, blue)                → --ink
+ * r/appearance.js copies the payload's ids onto <html>. An unknown id matches no rule below and
+ * keeps the :root default (classic, plain, black), just as the catalogs fall back in the app.
+ * A sheet of paper doesn't invert, so neither does this page: there is no dark variant. */
+
 :root {
-  --paper: #F6F1E7;
-  --ink: #1C1A17;
-  --muted: #6B645A;
+  color-scheme: light;
+
+  /* PaperToneCatalog "classic" (Theme.Colors.paper), the default stock */
+  --paper: #FCFAF5;
+  --rule: #D9D9D1;
+  --grain: 0.15;
+  /* PaperStyleCatalog "plain", the default style: the rules exist but aren't painted */
+  --rule-opacity: 0;
+  /* InkToneCatalog "black", the default ink */
+  --ink: #1A1A1F;
+
+  /* The app's 8 mm rule pitch on iPhone (RealWorldScale.iPhone: 79.2 pt/in) is ~25pt for 17pt
+     type. In rem so the text and its rules grow together with the reader's text size. */
+  --text: 1.0625rem;
+  --pitch: 1.5625rem;
+
+  --muted: rgba(26, 26, 31, 0.56);
+  --hairline: rgba(26, 26, 31, 0.1);
+  --gutter: 1.25rem;
+  --column: 36rem;
+  --ease-out: cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  --serif: "New York", ui-serif, "Iowan Old Style", "Palatino", Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, system-ui, "Helvetica Neue", Arial, sans-serif;
 }
+
+/* PaperToneCatalog */
+:root[data-paper-tone="ivory"] { --paper: #FAF5EA; --rule: #D6D0C4; --grain: 0.15; }
+:root[data-paper-tone="sand"]  { --paper: #F2EADB; --rule: #CEC4B3; --grain: 0.18; }
+:root[data-paper-tone="mist"]  { --paper: #F4F6F8; --rule: #CDD3D9; --grain: 0.12; }
+
+/* PaperStyleCatalog */
+:root[data-paper-style="ruled"]      { --rule-opacity: 1; }
+:root[data-paper-style="faintRuled"] { --rule-opacity: 0.45; }
+
+/* InkToneCatalog. Secondary text is the same ink, thinned, so it always belongs to the page. */
+:root[data-ink-tone="blue"]  { --ink: #1D357A; --muted: rgba(29, 53, 122, 0.6);  --hairline: rgba(29, 53, 122, 0.12); }
+:root[data-ink-tone="brown"] { --ink: #4F321D; --muted: rgba(79, 50, 29, 0.6);   --hairline: rgba(79, 50, 29, 0.12); }
+:root[data-ink-tone="grey"]  { --ink: #494B4F; --muted: rgba(73, 75, 79, 0.66);  --hairline: rgba(73, 75, 79, 0.14); }
+
+/* ---------- Page ---------- */
+
 * { box-sizing: border-box; }
-html, body { margin: 0; background: var(--paper); color: var(--ink); }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+[hidden] { display: none !important; }
+
+html {
+  background: var(--paper);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
-main { max-width: 38rem; margin: 0 auto; padding: 4rem 1.25rem 6rem; }
-h1 { font-size: 1.5rem; font-weight: 600; margin: 0 0 0.25rem; }
-.passage-date { color: var(--muted); margin: 0 0 2rem; }
-.passage-body { white-space: pre-wrap; font-size: 1.125rem; overflow-wrap: anywhere; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Paper grain, as the app lays PaperGrainStyle over the stock. Fixed and behind everything. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url("/r/grain.svg") repeat;
+  background-size: 240px 240px;
+  mix-blend-mode: multiply;
+  opacity: calc(var(--grain) * 0.6);
+}
+
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+.passage:focus { outline: none; }
+
+/* ---------- Top bar ---------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: calc(var(--column) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: max(0.875rem, env(safe-area-inset-top)) max(var(--gutter), env(safe-area-inset-right)) 0.875rem max(var(--gutter), env(safe-area-inset-left));
+}
+.wordmark {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.625rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  /* optical: italics lean right, so nudge the J back to the column edge */
+  margin-left: -0.05em;
+  padding: 0.25rem 0;
+}
+
+/* The pill: the page's single loud thing, in the writer's own ink. */
+.pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-height: 2.25rem;
+  padding: 0 1rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s var(--ease-out), opacity 0.2s var(--ease-out);
+}
+/* 44pt touch target without a 44pt pill */
+.pill::after { content: ""; position: absolute; inset: -0.25rem -0.125rem; }
+.pill:active { transform: scale(0.97); opacity: 0.88; }
+@media (hover: hover) { .pill:hover { opacity: 0.88; } }
+
+/* ---------- Passage ---------- */
+
+main {
+  max-width: calc(var(--column) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 2.25rem max(var(--gutter), env(safe-area-inset-right)) 10rem max(var(--gutter), env(safe-area-inset-left));
+}
+
+h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.875rem;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+.passage-date {
+  margin: 0.625rem 0 0;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--muted);
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  font-variant-numeric: oldstyle-nums;
+}
+
+.passage-body {
+  position: relative;
+  margin-top: 1.75rem;
+  font-size: var(--text);
+  line-height: var(--pitch);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  hyphens: manual;
+  isolation: isolate; /* keeps the rules above the grain, below the text */
+}
+/* The rules, on the same pitch as the text so every baseline sits on a line. Unpainted (opacity 0)
+   on plain paper, exactly as in the app. Where the baseline lands is font-dependent: check on device. */
+.passage-body::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 calc(var(--pitch) * -0.25);
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--rule-opacity);
+  background-image: linear-gradient(to bottom, transparent calc(100% - 1px), var(--rule) calc(100% - 1px));
+  background-size: 100% var(--pitch);
+  background-position: 0 calc(var(--pitch) * -0.1);
+}
+/* Companion voice: the hook #360 styles. Left as the tracer drew it. */
 .run-companion { font-family: "New York", "Iowan Old Style", Georgia, serif; font-weight: 600; }
-.notice a { color: inherit; }
+
+/* ---------- Notices ----------
+   Shared by every state that isn't a passage ("doesn't exist", "couldn't load", and #355's expired
+   notice): <section class="notice"><h1>…</h1><p>…</p><p><a href>…</a></p></section> */
+
+.notice {
+  min-height: 55vh;
+  min-height: 55dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 24rem;
+}
+.notice h1 { margin-bottom: 0.75rem; }
+.notice p { margin: 0; color: var(--muted); line-height: 1.5; }
+.notice p + p { margin-top: 1.25rem; }
+.notice a {
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--hairline);
+  transition: text-decoration-color 0.2s var(--ease-out);
+}
+.notice a:hover, .notice a:focus-visible { text-decoration-color: currentColor; }
+
+/* ---------- Get app footer ---------- */
+
+.get-app {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  padding: 0 max(0.75rem, env(safe-area-inset-right)) max(0.75rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 0.3s var(--ease-out), transform 0.45s var(--ease-out), visibility 0s linear 0.45s;
+}
+.get-app.is-revealed {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.35s var(--ease-out), transform 0.5s var(--ease-out), visibility 0s;
+}
+.get-app-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 30rem;
+  margin: 0 auto;
+  padding: 0.75rem 0.5rem 0.75rem 0.75rem;
+  border-radius: 1.25rem;
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 1px 2px rgba(20, 18, 15, 0.04), 0 10px 32px -8px rgba(20, 18, 15, 0.18);
+  pointer-events: auto;
+}
+.get-app-icon {
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.625rem; /* the iOS icon squircle, near enough at this size */
+  box-shadow: 0 0 0 0.5px rgba(20, 18, 15, 0.12);
+}
+.get-app-text {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+.get-app-name { font-size: 0.9375rem; font-weight: 600; line-height: 1.2; }
+.get-app-tagline { font-size: 0.8125rem; line-height: 1.3; color: var(--muted); }
+.get-app .pill { min-height: 2rem; padding: 0 0.875rem; font-size: 0.8125rem; }
+.get-app-close {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: -0.5rem -0.25rem -0.5rem -0.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.get-app-close:active { color: var(--ink); }
+
+/* ---------- Wider screens ---------- */
+
+@media (min-width: 40rem) {
+  :root { --gutter: 2rem; --text: 1.125rem; --pitch: 1.75rem; }
+  .topbar { padding-top: max(1.5rem, env(safe-area-inset-top)); }
+  main { padding-top: 4.5rem; }
+  h1 { font-size: 2.375rem; }
+  .passage-date { font-size: 0.9375rem; }
+  .get-app { padding-bottom: max(1.25rem, env(safe-area-inset-bottom)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .get-app, .get-app.is-revealed { transform: none; transition: opacity 0.2s linear, visibility 0s; }
+  .get-app:not(.is-revealed) { transition: opacity 0.2s linear, visibility 0s linear 0.2s; }
+  .pill { transition: none; }
+  .pill:active { transform: none; }
+}
