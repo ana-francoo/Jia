@@ -98,7 +98,10 @@ export function keyFromHash(hash) {
   return key.length > 0 ? key : null;
 }
 
-/** Asks the edge function for a passage's state: `{ state: "live", ciphertext }` or `{ state: "unknown" }`. */
+/**
+ * Asks the edge function for a passage's state: `{ state: "live", ciphertext }`, `{ state: "expired" }`
+ * (past its 24 hours, ciphertext gone or withheld) or `{ state: "unknown" }`.
+ */
 export async function fetchPassageState(id, fetchImpl = globalThis.fetch) {
   const res = await fetchImpl(`${SHARED_PASSAGES_ENDPOINT}/${encodeURIComponent(id)}`, {
     method: "GET",
@@ -112,9 +115,10 @@ export async function fetchPassageState(id, fetchImpl = globalThis.fetch) {
 
 /**
  * Everything the page needs to decide what to show, from its location alone:
- *   { kind: "passage", payload } | { kind: "unknown" } | { kind: "error" }
+ *   { kind: "passage", payload } | { kind: "expired" } | { kind: "unknown" } | { kind: "error" }
  * A missing id or fragment, an unknown id, or a passage that won't open are all "unknown" — the
- * "doesn't exist" notice. Expired passages (#355) will add { kind: "expired" }.
+ * "doesn't exist" notice. A passage past its 24 hours (or a tombstone) is "expired" — the expired
+ * notice (#355). A link with a missing or malformed key is "unknown" before any fetch, expired or not.
  */
 export async function resolvePassage(location, deps = {}) {
   const id = idFromPath(location.pathname);
@@ -126,6 +130,7 @@ export async function resolvePassage(location, deps = {}) {
   } catch {
     return { kind: "error" };
   }
+  if (state?.state === "expired") return { kind: "expired" };
   if (state?.state !== "live" || typeof state.ciphertext !== "string") return { kind: "unknown" };
   try {
     return { kind: "passage", payload: await openPassage(state.ciphertext, key) };
