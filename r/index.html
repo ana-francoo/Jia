@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A passage from my journal · Jia</title>
+  <meta name="description" content="A passage from my journal, shared with Jia.">
+  <!-- Someone's journal: never indexed, never followed, never sends a referrer. -->
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#F6F1E7">
+
+  <!-- Static preview: the server cannot read the passage, so every link unfurls the same (ADR-0064).
+       The dedicated preview image is #358; until then, the site's image. -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Jia">
+  <meta property="og:title" content="A passage from my journal">
+  <meta property="og:image" content="https://tryjia.app/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A passage from my journal">
+  <meta name="twitter:image" content="https://tryjia.app/og-image.jpg">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/r/passage.css">
+  <script type="module" src="/r/page.js"></script>
+</head>
+<body>
+  <main id="passage-page" aria-busy="true">
+    <!-- Shown once the passage opens. -->
+    <article id="passage" hidden>
+      <h1>A passage from my journal</h1>
+      <p id="passage-date" class="passage-date"></p>
+      <div id="passage-body" class="passage-body"></div>
+    </article>
+
+    <!-- Unknown id, missing or wrong key, or a passage that won't open. -->
+    <section id="notice-unknown" class="notice" hidden>
+      <h1>This link doesn't exist</h1>
+      <p><a href="https://tryjia.app/">Learn about Jia</a></p>
+    </section>
+
+    <!-- The passage couldn't be fetched (offline, server error). -->
+    <section id="notice-error" class="notice" hidden>
+      <h1>This passage couldn't load</h1>
+      <p>Check your connection and try again.</p>
+    </section>
+
+    <noscript>
+      <section class="notice">
+        <h1>A passage from my journal</h1>
+        <p>This page opens the passage in your browser, so it needs JavaScript.</p>
+      </section>
+    </noscript>
+  </main>
+</body>
+</html>

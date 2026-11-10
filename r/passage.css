@@ -1,0 +1,18 @@
+:root {
+  --paper: #F6F1E7;
+  --ink: #1C1A17;
+  --muted: #6B645A;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+main { max-width: 38rem; margin: 0 auto; padding: 4rem 1.25rem 6rem; }
+h1 { font-size: 1.5rem; font-weight: 600; margin: 0 0 0.25rem; }
+.passage-date { color: var(--muted); margin: 0 0 2rem; }
+.passage-body { white-space: pre-wrap; font-size: 1.125rem; overflow-wrap: anywhere; }
+.run-companion { font-family: "New York", "Iowan Old Style", Georgia, serif; font-weight: 600; }
+.notice a { color: inherit; }

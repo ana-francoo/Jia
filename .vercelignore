@@ -1,0 +1,4 @@
+# Tests for the /r/{id} passage page: kept in the repo, never deployed.
+r/test
+r/*.test.mjs
+r/package.json
