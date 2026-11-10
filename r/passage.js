@@ -146,3 +146,12 @@ export function formatPassageDate(isoDate, locale = "en-US") {
     weekday: "long", year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
   }).format(new Date(Date.UTC(y, m - 1, d)));
 }
+
+/**
+ * The class a run's span wears: "run run-companion" for the Companion's words (#360), set apart in
+ * passage.css, and "run run-writer" for the writer's own. Each run's text goes into its span verbatim,
+ * so the voice boundary adds no whitespace and the newlines inside the runs are the paragraph breaks.
+ */
+export function runClassName(voice) {
+  return voice === "companion" ? "run run-companion" : "run run-writer";
+}

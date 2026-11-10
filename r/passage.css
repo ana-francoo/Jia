@@ -190,8 +190,11 @@ h1 {
   background-size: 100% var(--pitch);
   background-position: 0 calc(var(--pitch) * -0.1);
 }
-/* Companion voice: the hook #360 styles. Left as the tracer drew it. */
-.run-companion { font-family: "New York", "Iowan Old Style", Georgia, serif; font-weight: 600; }
+/* The Companion's voice (#360), as the app sets it on the canvas: the writer's own face and ink, in
+   bold (TextBlockRenderer.companionWeight; the payload's "companion" was once a serif, the weight is
+   now the whole distinction). Runs are inline spans in one pre-wrap flow, so the newlines inside the
+   runs are the paragraph breaks and nothing is added at a boundary between voices. */
+.run-companion { font-weight: 700; }
 
 /* ---------- Notices ----------
    Shared by every state that isn't a passage ("doesn't exist", "couldn't load", and #355's expired

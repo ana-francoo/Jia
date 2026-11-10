@@ -14,6 +14,7 @@ import {
   openPassage,
   PassageOpenError,
   resolvePassage,
+  runClassName,
 } from "./passage.js";
 
 const vector = JSON.parse(readFileSync(new URL("./test/passage-test-vector-v1.json", import.meta.url)));
@@ -167,4 +168,21 @@ test("the page script shows a notice for every kind resolvePassage returns", () 
   assert.match(pageJS, /case "expired":\s*show\("notice-expired"\)/);
   assert.match(pageJS, /case "error":\s*show\("notice-error"\)/);
   assert.match(pageJS, /default:\s*show\("notice-unknown"\)/);
+});
+
+test("a mixed-voice passage marks the Companion's runs, and the runs rejoin to the exact words (#360)", async () => {
+  const payload = await openPassage(vector.ciphertext, vector.key);
+  assert.deepEqual(payload.runs.map((run) => runClassName(run.voice)), [
+    "run run-writer",
+    "run run-companion",
+    "run run-writer",
+  ]);
+  // No space or break is added at a voice boundary: the paragraph breaks are the runs' own newlines.
+  assert.equal(
+    payload.runs.map((run) => run.text).join(""),
+    "Today I finally said it out loud \u2014 \"I'm proud of this.\"\nWhat made today different?\nNothing, and everything. \u2728",
+  );
+  // The page draws each run through it, as text.
+  const pageJS = readFileSync(new URL("./page.js", import.meta.url), "utf8");
+  assert.match(pageJS, /span\.className = runClassName\(run\.voice\);\s*span\.textContent = run\.text;/);
 });

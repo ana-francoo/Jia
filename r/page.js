@@ -3,7 +3,7 @@
 //
 // Design (#357): the writer's paper and ink via r/appearance.js, the "Get app" footer via r/footer.js; expired notice (#355).
 
-import { formatPassageDate, resolvePassage } from "/r/passage.js";
+import { formatPassageDate, resolvePassage, runClassName } from "/r/passage.js";
 import { applyAppearance } from "/r/appearance.js";
 import { revealFooterOnScroll } from "/r/footer.js";
 
@@ -20,7 +20,7 @@ function renderPassage(payload) {
   body.replaceChildren();
   for (const run of payload.runs) {
     const span = document.createElement("span");
-    span.className = run.voice === "companion" ? "run run-companion" : "run run-writer";
+    span.className = runClassName(run.voice);
     span.textContent = run.text;
     body.appendChild(span);
   }
