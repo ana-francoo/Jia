@@ -11,14 +11,20 @@
   <meta name="theme-color" content="#F6F1E7">
 
   <!-- Static preview: the server cannot read the passage, so every link unfurls the same (ADR-0064).
-       The dedicated preview image is #358; until then, the site's image. -->
+       r/preview.jpg comes from tools/make-passage-preview.py. No og:url: one canonical URL for every
+       share would make some unfurlers fetch and show that page's card instead of this one. -->
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Jia">
   <meta property="og:title" content="A passage from my journal">
-  <meta property="og:image" content="https://tryjia.app/og-image.jpg">
+  <meta property="og:image" content="https://tryjia.app/r/preview.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Cream journal paper with a few blurred lines of ink and the Jia mark.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="A passage from my journal">
-  <meta name="twitter:image" content="https://tryjia.app/og-image.jpg">
+  <meta name="twitter:image" content="https://tryjia.app/r/preview.jpg">
+  <meta name="twitter:image:alt" content="Cream journal paper with a few blurred lines of ink and the Jia mark.">
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">

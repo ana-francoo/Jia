@@ -2,3 +2,6 @@
 r/test
 r/*.test.mjs
 r/package.json
+
+# Build scripts (e.g. the passage preview art): kept in the repo, never deployed.
+tools
