@@ -3,7 +3,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/r/:id([A-Za-z0-9_-]+)", "destination": "/r/index.html" }
+    { "source": "/r/:id([A-Za-z0-9_-]+)", "destination": "/r" }
   ],
   "headers": [
     {
