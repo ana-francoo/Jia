@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy: Jia | Your journal belongs to you</title>
-  <meta name="description" content="Jia's Privacy Policy. Your journal entries never touch our servers: they stay on your device and sync only through your own iCloud. We don't sell data or run ads.">
+  <meta name="description" content="Jia's Privacy Policy. Your journal stays on your device and syncs only through your own iCloud. A passage you choose to share is encrypted first, so we can't read it, and is deleted after 24 hours. We don't sell data or run ads.">
   <meta name="author" content="Jia">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="theme-color" content="#0C0B09">
@@ -18,7 +18,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Jia">
   <meta property="og:title" content="Privacy Policy: Jia">
-  <meta property="og:description" content="Your journal belongs to you. What you write in Jia never touches our servers: it stays on your device and syncs only through your own iCloud.">
+  <meta property="og:description" content="Your journal belongs to you. What you write in Jia stays on your device and syncs only through your own iCloud. A passage you choose to share is encrypted on your device, so we can't read it.">
   <meta property="og:url" content="https://tryjia.app/privacy">
   <meta property="og:image" content="https://tryjia.app/og-image.jpg">
   <meta property="og:locale" content="en_US">
@@ -34,8 +34,8 @@
     "@type": "PrivacyPolicy",
     "name": "Jia Privacy Policy",
     "url": "https://tryjia.app/privacy",
-    "description": "Privacy Policy for Jia, the AI journaling app for iOS. Journal content never reaches Jia's servers: it stays on your device and syncs only through your own iCloud.",
-    "dateModified": "2026-07-09",
+    "description": "Privacy Policy for Jia, the AI journaling app for iOS. Journal content stays on your device and syncs only through your own iCloud. Passages you choose to share are encrypted on your device with the key only in the link, so Jia can't read them, and are deleted after 24 hours.",
+    "dateModified": "2026-11-10",
     "publisher": {
       "@type": "Organization",
       "name": "Jia",
@@ -339,7 +339,7 @@
 
         <p class="description">This Privacy Policy explains what Jia collects, how it's used, and, most importantly, what stays on your device and never reaches us at all.</p>
 
-        <span class="effective-date">Effective July 9, 2026</span>
+        <span class="effective-date">Effective November 10, 2026</span>
 
       </div><!-- /hero-inner -->
 
@@ -356,7 +356,8 @@
           <h2 id="short-version">The short <em>version</em></h2>
           <div class="callout">
             <ul>
-              <li><strong>What you write never touches our servers.</strong> Your entries (handwriting, typed text, audio, decorations) live on your device and sync only through your own personal iCloud account. We do not have a copy and cannot read it.</li>
+              <li><strong>What you write stays with you.</strong> Your entries (handwriting, typed text, audio, decorations) live on your device and sync only through your own personal iCloud account. We do not have a copy and cannot read it.</li>
+              <li><strong>Sharing a passage is the one exception, and we still can't read it.</strong> If you share a passage as a link, it's encrypted on your device first and the key lives only in the link. It's deleted after 24 hours. See §1.8.</li>
               <li><strong>We only see AI requests you explicitly send</strong>, and only after removing things like names, emails, and phone numbers from them first.</li>
               <li><strong>AI providers never use your data to train their models.</strong></li>
               <li><strong>We don't sell your data</strong>, we don't run ads, and we don't share anything with data brokers.</li>
@@ -370,13 +371,13 @@
         <section aria-labelledby="s1">
           <h2 id="s1"><span class="section-num">1.</span>Information we <em>collect</em></h2>
 
-          <h3>1.1 Journal content: never sent to us</h3>
+          <h3>1.1 Journal content: not sent to us</h3>
           <p>Everything you create in Jia, including written entries, handwritten strokes, typed text, audio you talk into the app, decorations, and prompts you've answered, is stored:</p>
           <ul>
             <li><strong>On your device</strong>, in the app's local storage, and</li>
             <li><strong>In your own personal iCloud account</strong> (Apple's private CloudKit database), so it syncs across your own devices.</li>
           </ul>
-          <p>This data is encrypted at rest by Apple and is accessible only to you, as the signed-in iCloud user. <strong>Jia's servers never receive, store, or have visibility into this content</strong>: not your entries, not your handwriting, not your voice recordings.</p>
+          <p>This data is encrypted at rest by Apple and is accessible only to you, as the signed-in iCloud user. <strong>Jia's servers never receive, store, or have visibility into this content</strong>: not your entries, not your handwriting, not your voice recordings. The only exception is a passage you choose to share as a link, and even then we only hold it encrypted, without the key (see §1.8).</p>
           <p>Some content is deliberately never even written to a file, let alone synced anywhere:</p>
           <ul>
             <li><strong>Talk it out (voice-to-text):</strong> your speech is transcribed to text entirely on your device using Apple's on-device speech recognition. The audio itself is never saved to disk and never leaves your device; once the words appear as text, the audio is gone.</li>
@@ -406,6 +407,18 @@
 
           <h3>1.7 Purchases</h3>
           <p>Companion subscriptions are sold and billed entirely through Apple's App Store (StoreKit). We never see or store your payment details; Apple handles billing directly, and Jia only receives confirmation of your subscription status.</p>
+
+          <h3 id="shared-passages">1.8 Shared passages</h3>
+          <p>You can select a passage of typed text from an entry and share it as a link that opens on tryjia.app. This is the only way the words you write ever reach our backend, and it only happens when you ask for it. Here's how it works:</p>
+          <ul>
+            <li><strong>Only when you share.</strong> Nothing is uploaded until you pick a destination in the share sheet. If you close the sheet without choosing one, nothing leaves your device.</li>
+            <li><strong>Encrypted on your device.</strong> Before anything is uploaded, Jia encrypts the passage on your device: its words, the date of the entry it came from, and the paper and ink it's shown on. The key that unlocks it is only in the link itself, in the part after the # sign. Browsers never send that part to a server, so we store the encrypted passage but have no way to read it. The person you share it with unlocks it in their own browser.</li>
+            <li><strong>Never your name.</strong> A shared passage doesn't include your name. Next to it we store your anonymous ID from §1.2 (so we can delete your shared passages if you delete your account), the time it expires, and a count of how many times it's been opened.</li>
+            <li><strong>Gone after 24 hours.</strong> 24 hours after you share it, the encrypted passage is deleted. We keep a small marker with no content in it, just the link's ID and its expiry time, for 30 days, so anyone who opens the link sees "This link has expired" instead of an error. After 30 days the marker is deleted too.</li>
+            <li><strong>Anyone with the link can read it.</strong> For those 24 hours, whoever has the full link can open the passage, including anyone it gets forwarded to. Link previews in apps like Messages show the same generic card for every passage, never your words, because we can't read them to build one.</li>
+            <li><strong>The passage card stays on your device until you send it.</strong> When you share, Jia can also make an image of the passage. That image is made on your device and is never uploaded to us. Once you send it somewhere, it lives wherever you sent it and doesn't expire.</li>
+          </ul>
+          <p>Deleting your account removes all of your shared passages right away, and any links you've shared stop working (see §4).</p>
         </section>
 
         <section aria-labelledby="s2">
@@ -451,8 +464,8 @@
                 </tr>
                 <tr>
                   <th scope="row">Supabase (our backend)</th>
-                  <td>Anonymous hashed ID, AI request metadata, onboarding preferences, and minimal rate-limit / free-trial counters (no content)</td>
-                  <td>Running our backend, relaying AI requests, feature flags</td>
+                  <td>Anonymous hashed ID, AI request metadata, onboarding preferences, and minimal rate-limit / free-trial counters (no content). Shared passages you create, stored encrypted without the key, along with an expiry time and a view count</td>
+                  <td>Running our backend, relaying AI requests, feature flags, and holding shared passage links for 24 hours</td>
                 </tr>
                 <tr>
                   <th scope="row">OpenAI / Anthropic</th>
@@ -468,7 +481,7 @@
             </table>
           </div>
           <p>We do not use advertising networks, and we do not sell or rent your information to third parties.</p>
-          <p>We may disclose information if required to do so by law, or to protect the rights, property, or safety of Jia, our users, or others, but because journal content never reaches us in the first place, there is nothing of that nature for us to disclose, even in response to a legal request.</p>
+          <p>We may disclose information if required to do so by law, or to protect the rights, property, or safety of Jia, our users, or others, but because journal content never reaches us in a form we can read, there is nothing of that nature for us to disclose, even in response to a legal request. The most we could hand over is an encrypted shared passage we have no key for, and only during the 24 hours before it's deleted.</p>
         </section>
 
         <section aria-labelledby="s4">
@@ -479,9 +492,9 @@
             <li><strong>Disable analytics.</strong> Opt out of usage analytics at any time in Settings.</li>
             <li><strong>Review what's been sent to AI.</strong> Settings → AI History shows your last 100 requests.</li>
             <li><strong>Export or access your data.</strong> Because your journal lives in your own iCloud account, you can access, back up, and export it the same way you would any of your personal iCloud data.</li>
-            <li><strong>Delete your account and data.</strong> Settings → "Delete my account and all data" permanently deletes your journal data from iCloud, erases all local data and cached files on your device, deletes the AI-request metadata and onboarding preferences keyed to your anonymous backend identifier, and signs you out. (Usage analytics is stored under a separate, unlinked identifier and isn't tied to your identity, so there's no personal analytics record for us to delete.) You'll be shown exactly what will be deleted and asked to confirm before anything is removed.</li>
+            <li><strong>Delete your account and data.</strong> Settings → "Delete my account and all data" permanently deletes your journal data from iCloud, erases all local data and cached files on your device, deletes the AI-request metadata and onboarding preferences keyed to your anonymous backend identifier, deletes every shared passage you've created (so those links stop working immediately), and signs you out. (Usage analytics is stored under a separate, unlinked identifier and isn't tied to your identity, so there's no personal analytics record for us to delete.) You'll be shown exactly what will be deleted and asked to confirm before anything is removed.</li>
           </ul>
-          <p>If you're unable to use the in-app deletion flow (for example, you've lost access to your device or Apple ID), contact us at the email in §8 and we'll process the request manually. Note that because Jia is designed so your journal content never reaches our servers, there is generally very little for us to delete beyond the limited AI-request metadata and onboarding preferences described in §1.4–§1.5 (usage analytics is anonymous and not linked to you); deleting your iCloud data is something you can always do directly by removing it from your iCloud account, with or without our involvement.</p>
+          <p>If you're unable to use the in-app deletion flow (for example, you've lost access to your device or Apple ID), contact us at the email in §8 and we'll process the request manually. Note that because Jia is designed so your journal content never reaches our servers in a readable form, there is generally very little for us to delete beyond the limited AI-request metadata and onboarding preferences described in §1.4–§1.5 and any shared passages from §1.8 (usage analytics is anonymous and not linked to you); deleting your iCloud data is something you can always do directly by removing it from your iCloud account, with or without our involvement.</p>
         </section>
 
         <section aria-labelledby="s5">
@@ -491,8 +504,8 @@
 
         <section aria-labelledby="s6">
           <h2 id="s6"><span class="section-num">6.</span>Data <em>security</em></h2>
-          <p>Journal content is encrypted at rest by Apple within your private iCloud database and is accessible only to your signed-in iCloud account. Backend infrastructure that handles the limited anonymous data described above is access-controlled, and API keys for third-party AI providers are kept server-side and never embedded in the app.</p>
-          <p>No method of storage or transmission is 100% secure, but Jia is deliberately architected so that a compromise of our backend would not expose journal content, because our backend never has it.</p>
+          <p>Journal content is encrypted at rest by Apple within your private iCloud database and is accessible only to your signed-in iCloud account. Shared passages are encrypted on your device before upload, and the key never reaches our servers. Backend infrastructure that handles the limited anonymous data described above is access-controlled, and API keys for third-party AI providers are kept server-side and never embedded in the app.</p>
+          <p>No method of storage or transmission is 100% secure, but Jia is deliberately architected so that a compromise of our backend would not expose journal content, because our backend never has it in a form it can read.</p>
         </section>
 
         <section aria-labelledby="s7">

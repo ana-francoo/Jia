@@ -1,0 +1,28 @@
+{
+  "_comment": "Shared passage sealer test vector v1 (ADR-0064). AES-256-GCM; ciphertext is base64 of nonce(12) || ciphertext || tag(16); key is unpadded base64url. Decrypted identically by the Swift PassageSealer tests (JiaTests/SharePassage) and the web page's JS test (jia-landing-page r/passage.test.mjs, which carries a byte-identical copy). Do not regenerate without updating both.",
+  "key": "AwoRGB8mLTQ7QklQV15lbHN6gYiPlp2kq7K5wMfO1dw",
+  "wrongKey": "_AoRGB8mLTQ7QklQV15lbHN6gYiPlp2kq7K5wMfO1dw",
+  "ciphertext": "oKGio6SlpqeoqaqrAKYFK9dMg/dm80QjCCW3OzlaWhbkxdhGcZd9MlsWYaygVWK4slWrghWx9ClPQIHk058hIH297xeLDKU6W/V7xalvCjRnyx9FTAEv10Irik90AC3nfQOwh83CWEVjc/W4BTngSi3h0mpxl+HK6KfVApx+07bFuDMmqtYB50bpTFXg022hVTgk3yG8tsFqONdYAgkuPV22nGUEveW8VTmN0kgw3CLT7NSiEwAihpgYoqqtQMhSYyewp7qvMGWxD5ZvHA/EDqKSKoE3zc2HWWp7EIZQ2aNttSPeaxflfl35KRcE+yYpqP/fVv5X9L/LIB5np/ioX1+UeMXA/wu2GVow7G5D04PgNGeZn2yOz/LTJf2jXNwoQMfZ9Yno7pXbanyBYQ8KtmXXAVpP9EFbX0gYmvTdT9H4ZCHJW+N1Zk8f7qSTIQ==",
+  "tamperedCiphertext": "oKGio6SlpqeoqaqrAKYFK9dMg/dn80QjCCW3OzlaWhbkxdhGcZd9MlsWYaygVWK4slWrghWx9ClPQIHk058hIH297xeLDKU6W/V7xalvCjRnyx9FTAEv10Irik90AC3nfQOwh83CWEVjc/W4BTngSi3h0mpxl+HK6KfVApx+07bFuDMmqtYB50bpTFXg022hVTgk3yG8tsFqONdYAgkuPV22nGUEveW8VTmN0kgw3CLT7NSiEwAihpgYoqqtQMhSYyewp7qvMGWxD5ZvHA/EDqKSKoE3zc2HWWp7EIZQ2aNttSPeaxflfl35KRcE+yYpqP/fVv5X9L/LIB5np/ioX1+UeMXA/wu2GVow7G5D04PgNGeZn2yOz/LTJf2jXNwoQMfZ9Yno7pXbanyBYQ8KtmXXAVpP9EFbX0gYmvTdT9H4ZCHJW+N1Zk8f7qSTIQ==",
+  "payload": {
+    "v": 1,
+    "runs": [
+      {
+        "text": "Today I finally said it out loud — \"I'm proud of this.\"\n",
+        "voice": "writer"
+      },
+      {
+        "text": "What made today different?",
+        "voice": "companion"
+      },
+      {
+        "text": "\nNothing, and everything. ✨",
+        "voice": "writer"
+      }
+    ],
+    "date": "2026-11-10",
+    "paperStyleID": "ruled",
+    "paperToneID": "sand",
+    "inkToneID": "blue"
+  }
+}

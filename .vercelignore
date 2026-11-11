@@ -1,0 +1,7 @@
+# Tests for the /r/{id} passage page: kept in the repo, never deployed.
+r/test
+r/*.test.mjs
+r/package.json
+
+# Build scripts (e.g. the passage preview art): kept in the repo, never deployed.
+tools

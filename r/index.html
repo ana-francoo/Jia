@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>A passage from my journal · Jia</title>
+  <meta name="description" content="A passage from my journal, shared with Jia.">
+  <!-- Someone's journal: never indexed, never followed, never sends a referrer. -->
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#FCFAF5">
+  <meta name="color-scheme" content="light">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Static preview: the server cannot read the passage, so every link unfurls the same (ADR-0064).
+       r/preview.jpg comes from tools/make-passage-preview.py. No og:url: one canonical URL for every
+       share would make some unfurlers fetch and show that page's card instead of this one. -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Jia">
+  <meta property="og:title" content="A passage from my journal">
+  <meta property="og:image" content="https://tryjia.app/r/preview.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Cream journal paper with a few blurred lines of ink and the Jia mark.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A passage from my journal">
+  <meta name="twitter:image" content="https://tryjia.app/r/preview.jpg">
+  <meta name="twitter:image:alt" content="Cream journal paper with a few blurred lines of ink and the Jia mark.">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/r/passage.css">
+  <script type="module" src="/r/page.js"></script>
+</head>
+<body>
+  <!-- App Store links: one URL, used by both pills. JIA_APP_STORE_ID is a placeholder until the
+       listing exists; ct=shared_passage is the campaign token (#353). -->
+  <header class="topbar">
+    <a class="wordmark" href="https://tryjia.app/">Jia</a>
+    <a class="pill" href="https://apps.apple.com/app/jia-journal/id6786305104?ct=shared_passage">Download for free</a>
+  </header>
+
+  <main id="passage-page" aria-busy="true">
+    <!-- Shown once the passage opens. -->
+    <article id="passage" class="passage" aria-labelledby="passage-heading" tabindex="-1" hidden>
+      <h1 id="passage-heading">A passage from my journal</h1>
+      <p class="passage-date"><time id="passage-date"></time></p>
+      <div id="passage-body" class="passage-body"></div>
+    </article>
+
+    <!-- Past its 24 hours (#355). -->
+    <section id="notice-expired" class="notice" hidden>
+      <h1>This link has expired</h1>
+      <p>Shared passages are only available for 24 hours</p>
+      <p><a href="https://tryjia.app/">Learn about Jia</a></p>
+    </section>
+
+    <!-- Unknown id, missing or wrong key, or a passage that won't open. -->
+    <section id="notice-unknown" class="notice" hidden>
+      <h1>This link doesn't exist</h1>
+      <p><a href="https://tryjia.app/">Learn about Jia</a></p>
+    </section>
+
+    <!-- The passage couldn't be fetched (offline, server error). -->
+    <section id="notice-error" class="notice" hidden>
+      <h1>This passage couldn't load</h1>
+      <p>Check your connection and try again.</p>
+    </section>
+
+    <noscript>
+      <section class="notice">
+        <h1>A passage from my journal</h1>
+        <p>This page opens the passage in your browser, so it needs JavaScript.</p>
+      </section>
+    </noscript>
+  </main>
+
+  <!-- Revealed once the reader scrolls (r/footer.js). Starts hidden so it never shows on a notice. -->
+  <aside id="get-app" class="get-app" aria-label="Get Jia" hidden>
+    <div class="get-app-card">
+      <img class="get-app-icon" src="/apple-touch-icon.png" alt="" width="44" height="44">
+      <p class="get-app-text">
+        <span class="get-app-name">Jia</span>
+        <span class="get-app-tagline">Reflection shouldn't start from zero.</span>
+      </p>
+      <a class="pill" href="https://apps.apple.com/app/jia-journal/id6786305104?ct=shared_passage">Get app</a>
+      <button class="get-app-close" type="button" aria-label="Dismiss">
+        <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false">
+          <path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </aside>
+</body>
+</html>
