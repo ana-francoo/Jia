@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jia: AI Journaling App to Get Your Life Together & Reach Your Potential</title>
-  <meta name="description" content="Jia is an AI journaling app for iOS that helps you get your life together, find clarity, and realize your full potential, one honest entry at a time. Join the waitlist.">
+  <meta name="description" content="Jia is an AI journaling app for iOS that helps you get your life together, find clarity, and realize your full potential, one honest entry at a time. Free on the App Store.">
   <meta name="keywords" content="AI journaling app, get your life together, reach your full potential, self-improvement app, AI journal, self-discovery, personal growth, become your best self, AI diary, reflection app, iOS journaling">
   <meta name="author" content="Jia">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -113,7 +113,7 @@
             "name": "How much does Jia cost and when is it available?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Jia is launching soon on iOS. You can join the waitlist for free today to get early access at launch. Pricing details will be shared with waitlist members first."
+              "text": "Jia is available now on iPhone and free to download from the App Store."
             }
           },
           {
@@ -129,7 +129,7 @@
             "name": "Is there an AI app that helps you reach your full potential?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Jia is an AI-powered journal built to help you realize your full potential. It listens to your thoughts, reflects them back with clarity, keeps your goals in view, and helps you grow into your best self through consistent self-reflection. It's available soon on iOS. You can join the waitlist now."
+              "text": "Yes. Jia is an AI-powered journal built to help you realize your full potential. It listens to your thoughts, reflects them back with clarity, keeps your goals in view, and helps you grow into your best self through consistent self-reflection. It's available now on iPhone."
             }
           },
           {
@@ -561,95 +561,74 @@
       animation: fadeUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.5s forwards;
     }
 
-    /* ============ WAITLIST ============ */
-    .waitlist {
+    /* ============ APP STORE ============ */
+    .store-cta {
       width: 100%;
       max-width: 440px;
       margin-bottom: 40px;
-    }
-    .waitlist-form {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 100%;
+      justify-content: center;
     }
-    .waitlist-input {
-      width: 100%;
-      padding: 16px 20px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: var(--surface-raised);
-      color: var(--text-primary);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-      opacity: 0;
-      transform: translateY(12px);
-      filter: blur(6px);
-    }
-    .waitlist-input::placeholder { color: var(--text-tertiary); }
-    .waitlist-input:focus {
-      border-color: rgba(232,168,124,0.3);
-      box-shadow: 0 0 0 3px var(--accent-dim), 0 0 20px -4px var(--accent-glow);
-      background: var(--bg);
-    }
-    .animate .waitlist-input {
-      animation: fadeUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.65s forwards;
-    }
-    .waitlist-btn {
-      width: 100%;
-      padding: 16px 32px;
-      background: linear-gradient(135deg, var(--accent), #D4956A);
+    /* The light badge, per Apple's guidance for dark backgrounds. */
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      padding: 13px 26px 14px 22px;
+      border-radius: 15px;
+      background: var(--warm-white);
       color: var(--bg);
-      border: none;
-      border-radius: 14px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 0.95rem;
-      letter-spacing: 0.3px;
-      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.7);
       transition: transform 0.25s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
       position: relative;
       overflow: hidden;
       opacity: 0;
       filter: blur(6px);
     }
-    .animate .waitlist-btn {
-      animation: fadeUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.77s forwards;
+    .animate .store-badge {
+      animation: fadeUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.68s forwards;
     }
-    .waitlist-btn::before {
+    .store-badge::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.55) 50%, transparent 60%);
       transform: translateX(-100%);
       transition: transform 0.5s ease;
     }
-    .waitlist-btn:hover::before {
-      transform: translateX(100%);
-    }
-    .waitlist-btn:hover {
+    .store-badge:hover::before { transform: translateX(100%); }
+    .store-badge:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px -4px rgba(232,168,124,0.35);
+      box-shadow: 0 14px 36px -10px rgba(232,168,124,0.4);
     }
-    .waitlist-btn:active {
-      transform: translateY(0);
-      box-shadow: none;
+    .store-badge:active { transform: translateY(0); }
+    .store-badge svg {
+      width: 24px; height: 28px;
+      fill: currentColor;
+      flex: 0 0 auto;
+      position: relative;
     }
-
-    .waitlist-success {
-      display: none;
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-size: 1.6rem;
-      color: var(--accent);
-      padding: 20px;
+    .store-badge .badge-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      text-align: left;
+      position: relative;
     }
-    .waitlist.success .waitlist-form { display: none; }
-    .waitlist.success .waitlist-success {
-      display: block;
-      animation: fadeUp 0.5s ease-out forwards;
+    .store-badge .badge-sm {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      opacity: 0.7;
+      margin-bottom: 3px;
+    }
+    .store-badge .badge-lg {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.4px;
     }
 
     /* ============ FOOTER ============ */
@@ -673,12 +652,6 @@
       animation: fadeUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) 0.9s forwards;
     }
 
-    /* ============ CONFETTI ============ */
-    .confetti-container {
-      position: fixed; inset: 0;
-      pointer-events: none; z-index: 99;
-    }
-
     /* ============ KEYFRAMES ============ */
     @keyframes fadeDown {
       from { opacity: 0; transform: translateY(-8px); filter: blur(6px); }
@@ -692,10 +665,6 @@
       from { opacity: 0; filter: blur(8px); }
       to { opacity: 1; filter: blur(0px); }
     }
-    @keyframes confettiFall {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
 
     /* ============ RESPONSIVE ============ */
     @media (max-width: 780px) {
@@ -708,8 +677,7 @@
       .spiral-ring { width: 14px; height: 14px; border-width: 2px; }
       .spiral-margin { left: 38px; }
       .logo-img { width: 100px; height: 100px; border-radius: 24px; }
-      .waitlist-form { flex-direction: column; }
-      .waitlist-btn { padding: 16px; }
+      .store-badge { padding: 13px 22px 14px 18px; }
       .slogan { margin-bottom: 20px; }
       .pill { margin-bottom: 24px; }
     }
@@ -966,17 +934,20 @@
       <span class="divider-text">A gift for future you</span>
     </div>
 
-    <div class="waitlist" id="waitlist">
-      <form class="waitlist-form" id="waitlistForm" action="https://formspree.io/f/xqejaqwb" method="POST">
-        <input class="waitlist-input" type="email" name="email" placeholder="Enter your email" required autocomplete="email">
-        <button class="waitlist-btn" type="submit">Join the waitlist</button>
-      </form>
-      <div class="waitlist-success">You're on the list.<br>We'll be in touch.</div>
+    <div class="store-cta">
+      <a class="store-badge" href="https://apps.apple.com/app/jia-journal/id6786305104"
+         aria-label="Download Jia Journal on the App Store">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+        <span class="badge-text">
+          <span class="badge-sm">Download on the</span>
+          <span class="badge-lg">App Store</span>
+        </span>
+      </a>
     </div>
 
     <p class="footer-note">
       <svg class="ios-icon" width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M9.5 4.5C9.5 2.5 8 1 6 1S2.5 2.5 2.5 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><rect x="0.6" y="5" width="10.8" height="8.4" rx="2" stroke="currentColor" stroke-width="1.2"/></svg>
-      Available soon on iOS
+      Free on iPhone &middot; Requires iOS 17.6
     </p>
 
     </div><!-- /hero-inner -->
@@ -1097,7 +1068,7 @@
         </details>
         <details class="faq-item">
           <summary>How much does Jia cost and when is it available?</summary>
-          <p>Jia is launching soon on iOS. You can join the waitlist for free today to get early access at launch. Pricing details will be shared with waitlist members first.</p>
+          <p>Jia is available now on iPhone and free to download from the App Store.</p>
         </details>
         <details class="faq-item">
           <summary>What is the best app to help me get my life together?</summary>
@@ -1105,7 +1076,7 @@
         </details>
         <details class="faq-item">
           <summary>Is there an AI app that helps you reach your full potential?</summary>
-          <p>Yes. Jia is an AI-powered journal built to help you realize your full potential. It listens to your thoughts, reflects them back with clarity, keeps your goals in view, and helps you grow into your best self through consistent self-reflection. It's available soon on iOS. You can join the waitlist now.</p>
+          <p>Yes. Jia is an AI-powered journal built to help you realize your full potential. It listens to your thoughts, reflects them back with clarity, keeps your goals in view, and helps you grow into your best self through consistent self-reflection. It's available now on iPhone.</p>
         </details>
         <details class="faq-item">
           <summary>What's the best AI app for self-improvement and personal growth?</summary>
@@ -1123,8 +1094,8 @@
 
       <section class="cta-band" aria-labelledby="cta">
         <h2 id="cta">Start becoming your best self</h2>
-        <p>Jia is available soon on iOS. Join the waitlist and be first in line.</p>
-        <a class="cta-link" href="#landing">Join the waitlist →</a>
+        <p>Jia is out now on iPhone. Free to start.</p>
+        <a class="cta-link" href="https://apps.apple.com/app/jia-journal/id6786305104">Download on the App Store →</a>
         <br><span class="updated-stamp">Last updated June 2026</span>
       </section>
 
@@ -1133,12 +1104,10 @@
   </main>
 
   <footer class="site-footer">
-    <p>Jia: your inner voice, amplified. An AI journal for self-discovery, clarity, and reaching your full potential. Available soon on iOS.</p>
+    <p>Jia: your inner voice, amplified. An AI journal for self-discovery, clarity, and reaching your full potential. Available now on iPhone.</p>
     <p style="margin-top:10px;"><a href="/privacy">Privacy</a> &middot; <a href="/support">Support</a></p>
     <p style="margin-top:10px;">© 2026 Jia</p>
   </footer>
-
-  <div class="confetti-container" id="confettiContainer"></div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -1180,8 +1149,7 @@
         { sel: '.description', delay: 800, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
         { sel: '.logo-wrap', delay: 900, styles: { opacity: '1', filter: 'blur(0px)' } },
         { sel: '.divider', delay: 1000, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
-        { sel: '.waitlist-input', delay: 1100, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
-        { sel: '.waitlist-btn', delay: 1200, styles: { opacity: '1', filter: 'blur(0px)' } },
+        { sel: '.store-badge', delay: 1150, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
         { sel: '.footer-note', delay: 1300, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
       ];
       reveals.forEach(({ sel, delay, styles }) => {
@@ -1192,38 +1160,6 @@
       });
     });
 
-    // Form: optimistic, show success immediately, submit in background
-    const form = document.getElementById('waitlistForm');
-    const waitlist = document.getElementById('waitlist');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const data = new FormData(form);
-      waitlist.classList.add('success');
-      spawnConfetti();
-      fetch(form.action, {
-        method: 'POST', body: data,
-        headers: { 'Accept': 'application/json' }
-      }).catch(() => {});
-    });
-
-    function spawnConfetti() {
-      const c = document.getElementById('confettiContainer');
-      const colors = ['#E8A87C','#F2C97E','#D4956A','#F5F0E8','#E07850'];
-      for (let i = 0; i < 40; i++) {
-        const p = document.createElement('div');
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        const size = 4 + Math.random() * 8;
-        const shapes = ['50%', '2px', '50% 0 50% 50%'];
-        p.style.cssText = `
-          position:absolute; left:${30+Math.random()*40}%; top:-10px;
-          width:${size}px; height:${size}px; background:${color};
-          border-radius:${shapes[Math.floor(Math.random()*shapes.length)]};
-          opacity:0.9; animation: confettiFall ${1.5+Math.random()*2}s ease-out ${Math.random()*0.5}s forwards;
-        `;
-        c.appendChild(p);
-      }
-      setTimeout(() => c.innerHTML = '', 4000);
-    }
   </script>
 
 </body>
