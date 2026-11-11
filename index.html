@@ -631,27 +631,6 @@
       letter-spacing: -0.4px;
     }
 
-    /* ============ FOOTER ============ */
-    .footer-note {
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      font-size: 0.8rem;
-      color: var(--text-tertiary);
-      opacity: 0;
-      transform: translateY(10px);
-      filter: blur(6px);
-      line-height: 1.5;
-      letter-spacing: 0.5px;
-    }
-    .footer-note .ios-icon {
-      display: inline-block;
-      vertical-align: -1px;
-      margin-right: 4px;
-    }
-    .animate .footer-note {
-      animation: fadeUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) 0.9s forwards;
-    }
-
     /* ============ KEYFRAMES ============ */
     @keyframes fadeDown {
       from { opacity: 0; transform: translateY(-8px); filter: blur(6px); }
@@ -945,10 +924,6 @@
       </a>
     </div>
 
-    <p class="footer-note">
-      <svg class="ios-icon" width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M9.5 4.5C9.5 2.5 8 1 6 1S2.5 2.5 2.5 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><rect x="0.6" y="5" width="10.8" height="8.4" rx="2" stroke="currentColor" stroke-width="1.2"/></svg>
-      Free on iPhone &middot; Requires iOS 17.6
-    </p>
 
     </div><!-- /hero-inner -->
 
@@ -1150,7 +1125,6 @@
         { sel: '.logo-wrap', delay: 900, styles: { opacity: '1', filter: 'blur(0px)' } },
         { sel: '.divider', delay: 1000, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
         { sel: '.store-badge', delay: 1150, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
-        { sel: '.footer-note', delay: 1300, styles: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' } },
       ];
       reveals.forEach(({ sel, delay, styles }) => {
         setTimeout(() => {
