@@ -1,4 +1,4 @@
-/* The /r/{id} page (#357). Mobile-first; system faces only, so nothing loads from a third party.
+/* The /r/{id} page (#357). Mobile-first; system faces (plus the wordmark, self-hosted), so nothing loads from a third party.
  *
  * The paper and ink mirror the app's DesignSystem catalogs value for value (sRGB → hex):
  *   PaperToneCatalog  (stock, ruleColor, grainOpacity)  → --paper, --rule, --grain
@@ -31,6 +31,11 @@
   --column: 36rem;
   --ease-out: cubic-bezier(0.165, 0.84, 0.44, 1);
 
+  /* The app's default accent, JournalColor.classicRed (Theme.Colors.journalCover). The payload
+     doesn't carry the writer's accent, so every page wears the default. */
+  --accent: #E03D4A;
+  --on-accent: #FFFFFF;
+
   --serif: "New York", ui-serif, "Iowan Old Style", "Palatino", Georgia, serif;
   --sans: -apple-system, BlinkMacSystemFont, system-ui, "Helvetica Neue", Arial, sans-serif;
 }
@@ -48,6 +53,15 @@
 :root[data-ink-tone="blue"]  { --ink: #1D357A; --muted: rgba(29, 53, 122, 0.6);  --hairline: rgba(29, 53, 122, 0.12); }
 :root[data-ink-tone="brown"] { --ink: #4F321D; --muted: rgba(79, 50, 29, 0.6);   --hairline: rgba(79, 50, 29, 0.12); }
 :root[data-ink-tone="grey"]  { --ink: #494B4F; --muted: rgba(73, 75, 79, 0.66);  --hairline: rgba(73, 75, 79, 0.14); }
+
+/* The app's "Jia" wordmark face (NewOnboardingFont.extraBold), subset to J, i, a. */
+@font-face {
+  font-family: "Jia Wordmark";
+  src: url("/r/jia-wordmark.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: block;
+}
 
 /* ---------- Page ---------- */
 
@@ -101,18 +115,17 @@ a { color: inherit; }
   padding: max(0.875rem, env(safe-area-inset-top)) max(var(--gutter), env(safe-area-inset-right)) 0.875rem max(var(--gutter), env(safe-area-inset-left));
 }
 .wordmark {
-  font-family: var(--serif);
-  font-style: italic;
+  font-family: "Jia Wordmark", var(--sans);
+  font-weight: 800;
   font-size: 1.625rem;
   line-height: 1;
-  letter-spacing: -0.01em;
+  /* the app tracks it -1.5 at 64pt */
+  letter-spacing: -0.023em;
   text-decoration: none;
-  /* optical: italics lean right, so nudge the J back to the column edge */
-  margin-left: -0.05em;
   padding: 0.25rem 0;
 }
 
-/* The pill: the page's single loud thing, in the writer's own ink. */
+/* The pill: the page's single loud thing, in the app's accent. */
 .pill {
   position: relative;
   display: inline-flex;
@@ -122,8 +135,8 @@ a { color: inherit; }
   min-height: 2.25rem;
   padding: 0 1rem;
   border-radius: 999px;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--accent);
+  color: var(--on-accent);
   font-family: var(--sans);
   font-size: 0.875rem;
   font-weight: 600;
