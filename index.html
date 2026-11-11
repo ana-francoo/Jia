@@ -434,13 +434,20 @@
     }
 
     /* ============ WORDMARK ============ */
+    /* The app's "Jia" wordmark face (Hanken Grotesk ExtraBold), subset to J, i, a. */
+    @font-face {
+      font-family: 'Jia Wordmark';
+      src: url('/fonts/jia-wordmark.woff2') format('woff2');
+      font-weight: 800;
+      font-style: normal;
+      font-display: block;
+    }
     .wordmark {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
+      font-family: 'Jia Wordmark', 'Inter', sans-serif;
       font-size: 3.6rem;
-      font-weight: 400;
+      font-weight: 800;
       color: var(--text-primary);
-      letter-spacing: -1px;
+      letter-spacing: -0.023em;
       opacity: 0;
       transform: translateY(-8px);
       filter: blur(6px);

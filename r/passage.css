@@ -57,7 +57,7 @@
 /* The app's "Jia" wordmark face (NewOnboardingFont.extraBold), subset to J, i, a. */
 @font-face {
   font-family: "Jia Wordmark";
-  src: url("/r/jia-wordmark.woff2") format("woff2");
+  src: url("/fonts/jia-wordmark.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
   font-display: block;
