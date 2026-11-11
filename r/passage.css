@@ -20,10 +20,10 @@
   /* InkToneCatalog "black", the default ink */
   --ink: #1A1A1F;
 
-  /* The app's 8 mm rule pitch on iPhone (RealWorldScale.iPhone: 79.2 pt/in) is ~25pt for 17pt
-     type. In rem so the text and its rules grow together with the reader's text size. */
+  /* A touch roomier than the app's 8 mm pitch (~25pt for 17pt type) so a phone screen of text
+     doesn't feel cramped. In rem so the text and its rules grow together with the reader's text size. */
   --text: 1.0625rem;
-  --pitch: 1.5625rem;
+  --pitch: 1.8125rem;
 
   --muted: rgba(26, 26, 31, 0.56);
   --hairline: rgba(26, 26, 31, 0.1);
@@ -172,8 +172,6 @@ h1 {
 
 .passage-date {
   margin: 0.625rem 0 0;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--hairline);
   color: var(--muted);
   font-size: 0.875rem;
   letter-spacing: 0.01em;
@@ -198,7 +196,8 @@ h1 {
   inset: 0 0 calc(var(--pitch) * -0.25);
   z-index: -1;
   pointer-events: none;
-  opacity: var(--rule-opacity);
+  /* Softer than the catalog's rule colour: on a backlit screen the full-strength line reads heavy. */
+  opacity: calc(var(--rule-opacity) * 0.55);
   background-image: linear-gradient(to bottom, transparent calc(100% - 1px), var(--rule) calc(100% - 1px));
   background-size: 100% var(--pitch);
   background-position: 0 calc(var(--pitch) * -0.1);
@@ -307,7 +306,7 @@ h1 {
 /* ---------- Wider screens ---------- */
 
 @media (min-width: 40rem) {
-  :root { --gutter: 2rem; --text: 1.125rem; --pitch: 1.75rem; }
+  :root { --gutter: 2rem; --text: 1.125rem; --pitch: 2rem; }
   .topbar { padding-top: max(1.5rem, env(safe-area-inset-top)); }
   main { padding-top: 4.5rem; }
   h1 { font-size: 2.375rem; }
