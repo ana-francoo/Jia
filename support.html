@@ -158,9 +158,17 @@
     /* ============ HERO ============ */
     .hero-inner { width: 100%; display: flex; flex-direction: column; align-items: center; }
 
+    /* The app's "Jia" wordmark face (Hanken Grotesk ExtraBold), subset to J, i, a. */
+    @font-face {
+      font-family: 'Jia Wordmark';
+      src: url('/fonts/jia-wordmark.woff2') format('woff2');
+      font-weight: 800;
+      font-style: normal;
+      font-display: block;
+    }
     .wordmark {
-      font-family: 'Instrument Serif', serif; font-style: italic; font-size: 3.6rem;
-      font-weight: 400; color: var(--text-primary); letter-spacing: -1px;
+      font-family: 'Jia Wordmark', 'Inter', sans-serif; font-size: 3.6rem;
+      font-weight: 800; color: var(--text-primary); letter-spacing: -0.023em;
       margin-top: 20px; margin-bottom: 20px;
       animation: fadeDown 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) both;
     }
