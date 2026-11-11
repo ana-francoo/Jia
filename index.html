@@ -208,9 +208,9 @@
     ]
   }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="preload" href="/fonts/hanken-grotesk-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/hanken-grotesk-extrabold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/fonts/hanken-grotesk.css">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -232,7 +232,7 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text-primary);
       min-height: 100vh;
@@ -434,16 +434,8 @@
     }
 
     /* ============ WORDMARK ============ */
-    /* The app's "Jia" wordmark face (Hanken Grotesk ExtraBold), subset to J, i, a. */
-    @font-face {
-      font-family: 'Jia Wordmark';
-      src: url('/fonts/jia-wordmark.woff2') format('woff2');
-      font-weight: 800;
-      font-style: normal;
-      font-display: block;
-    }
     .wordmark {
-      font-family: 'Jia Wordmark', 'Inter', sans-serif;
+      font-family: 'Hanken Grotesk', sans-serif;
       font-size: 3.6rem;
       font-weight: 800;
       color: var(--text-primary);
@@ -460,19 +452,19 @@
 
     /* ============ SLOGAN ============ */
     .slogan {
-      font-family: 'Instrument Serif', serif;
-      font-weight: 400;
-      font-size: clamp(2.4rem, 6vw, 3.4rem);
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 5.2vw, 2.85rem);
       line-height: 1.15;
       color: var(--text-primary);
       margin-bottom: 24px;
       opacity: 0;
       transform: translateY(-8px);
       filter: blur(6px);
-      letter-spacing: -1.5px;
+      letter-spacing: -0.025em;
     }
     .slogan em {
-      font-style: italic;
+      font-style: normal;
       background: linear-gradient(135deg, var(--accent), #F2C97E);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -484,7 +476,7 @@
 
     /* ============ DESCRIPTION ============ */
     .description {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Hanken Grotesk', sans-serif;
       font-weight: 400;
       font-size: 1.05rem;
       color: var(--text-secondary);
@@ -556,7 +548,7 @@
       background: linear-gradient(90deg, transparent, var(--border), transparent);
     }
     .divider-text {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Hanken Grotesk', sans-serif;
       font-weight: 500;
       font-size: 0.7rem;
       color: var(--text-tertiary);
@@ -624,7 +616,7 @@
       position: relative;
     }
     .store-badge .badge-sm {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Hanken Grotesk', sans-serif;
       font-size: 0.65rem;
       font-weight: 500;
       letter-spacing: 0.2px;
@@ -632,7 +624,7 @@
       margin-bottom: 3px;
     }
     .store-badge .badge-lg {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Hanken Grotesk', sans-serif;
       font-size: 1.2rem;
       font-weight: 600;
       letter-spacing: -0.4px;
@@ -691,23 +683,23 @@
     .content section { margin-bottom: 76px; }
     .content section:last-child { margin-bottom: 0; }
     .content h2 {
-      font-family: 'Instrument Serif', serif;
-      font-weight: 400;
-      font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.55rem, 3.8vw, 2.05rem);
       line-height: 1.2;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.02em;
       color: var(--text-primary);
       margin-bottom: 22px;
     }
     .content h2 em {
-      font-style: italic;
+      font-style: normal;
       background: linear-gradient(135deg, var(--accent), #F2C97E);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     .content p {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Hanken Grotesk', sans-serif;
       font-size: 1.05rem;
       line-height: 1.75;
       color: var(--text-secondary);
@@ -746,7 +738,7 @@
       border-radius: 50%;
       background: var(--accent-dim);
       color: var(--accent);
-      font: 600 0.9rem/28px 'Inter', sans-serif;
+      font: 600 0.9rem/28px 'Hanken Grotesk', sans-serif;
       text-align: center;
     }
 
@@ -757,7 +749,7 @@
       cursor: pointer;
       list-style: none;
       padding: 22px 40px 22px 0;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Hanken Grotesk', sans-serif;
       font-weight: 500;
       font-size: 1.05rem;
       line-height: 1.4;
@@ -788,7 +780,7 @@
     table.compare {
       width: 100%;
       border-collapse: collapse;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Hanken Grotesk', sans-serif;
       font-size: 0.95rem;
       min-width: 460px;
     }
@@ -826,7 +818,7 @@
     .updated-stamp {
       display: inline-block;
       margin-top: 4px;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Hanken Grotesk', sans-serif;
       font-size: 0.75rem;
       letter-spacing: 0.5px;
       color: var(--text-tertiary);
@@ -837,7 +829,7 @@
     .cta-band .cta-link {
       display: inline-block;
       margin-top: 6px;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Hanken Grotesk', sans-serif;
       font-weight: 600;
       font-size: 1rem;
       color: var(--accent);
@@ -858,7 +850,7 @@
       padding: 36px 24px 52px;
     }
     .site-footer p {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Hanken Grotesk', sans-serif;
       font-size: 0.82rem;
       line-height: 1.6;
       color: var(--text-tertiary);
